@@ -77,7 +77,7 @@ git clone https://github.com/Thammasok/docker-workspace.git
 Go to the project directory :
 
 ```sh
-cd docker-nginx-php-mysql
+cd docker-workspace
 ```
 
 ### Project tree
