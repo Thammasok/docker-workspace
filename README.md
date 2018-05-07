@@ -4,33 +4,12 @@ Docker running Nginx, PHP-FPM, Composer, MySQL and PHPMyAdmin.
 ## Overview
 
 1. [Install prerequisites](#install-prerequisites)
-
-    Before installing project make sure the following prerequisites have been met.
-
 2. [Clone the project](#clone-the-project)
-
-    We’ll download the code from its repository on GitHub.
-
 3. [Configure Nginx With SSL Certificates](#configure-nginx-with-ssl-certificates) [`Optional`]
-
-    We'll generate and configure SSL certificate for nginx before running server.
-
 4. [Configure Xdebug](#configure-xdebug) [`Optional`]
-
-    We'll configure Xdebug for IDE (PHPStorm or Netbeans).
-
 5. [Run the application](#run-the-application)
-
-    By this point we’ll have all the project pieces in place.
-
 6. [Use Makefile](#use-makefile) [`Optional`]
-
-    When developing, you can use `Makefile` for doing recurrent operations.
-
 7. [Use Docker Commands](#use-docker-commands)
-
-    When running, you can use docker commands for doing recurrent operations.
-
 ___
 
 ## Install prerequisites
@@ -92,7 +71,7 @@ ___
 To install [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git), download it and install following the instructions :
 
 ```sh
-git clone https://github.com/nanoninja/docker-nginx-php-mysql.git
+git clone https://github.com/Thammasok/docker-workspace.git
 ```
 
 Go to the project directory :
