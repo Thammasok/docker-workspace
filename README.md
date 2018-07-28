@@ -99,6 +99,10 @@ cd docker-workspace
 │   ├── php
 │   │   └── php.ini
 │   └── ssl
+├── node
+|   ├──app
+|   ├──Dockerfile
+|   └──docker-compose.yml    
 └── web
     ├── app
     │   ├── composer.json.dist
