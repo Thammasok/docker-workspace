@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
     web:
         image: nginx:alpine
@@ -6,7 +6,7 @@ services:
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/ssl:/etc/ssl"
-            - "./web:/var/www/html"
+            # - "./web:/var/www/html"
             - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
         ports:
             - "8000:80"
@@ -17,7 +17,8 @@ services:
         restart: always
         depends_on:
             - php
-            - mysqldb
+            # - mysqldb
+            - mariadb
     php:
         image: nanoninja/php-fpm:${PHP_VERSION}
         container_name: "php_fpm"
@@ -25,12 +26,12 @@ services:
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./web:/var/www/html"
-    composer:
-        image: "composer"
-        container_name: php_composer
-        volumes:
-            - "./web/app:/app"
-        command: install
+    # composer:
+    #     image: "composer"
+    #     container_name: php_composer
+    #     volumes:
+    #         - "./web/app:/app"
+    #     command: install
     myadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
@@ -38,22 +39,37 @@ services:
             - "8080:80"
         environment:
             - PMA_ARBITRARY=1
-            - PMA_HOST=${MYSQL_HOST}
+            # - PMA_HOST=${MYSQL_HOST}
+            - PMA_HOST=${MARIADB_HOST}
         restart: always
         depends_on:
-            - mysqldb
-    mysqldb:
-        image: mysql:${MYSQL_VERSION}
-        container_name: ${MYSQL_HOST}
+            # - mysqldb
+            - mariadb
+    mariadb:
+        image: mariadb:${MARIADB_VERSION}
+        container_name: ${MARIADB_HOST}
         restart: always
         env_file:
             - ".env"
         environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
         ports:
-            - "8989:3306"
+            - 8989:3306
         volumes:
-            - "./data/db/mysql:/var/lib/mysql"
+            - "./data/db/mariadb:/var/lib/mysql"
+
+    # mysqldb:
+    #     image: mysql:${MYSQL_VERSION}
+    #     container_name: ${MYSQL_HOST}
+    #     restart: always
+    #     env_file:
+    #         - ".env"
+    #     environment:
+    #         - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    #         - MYSQL_USER=${MYSQL_USER}
+    #         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    #     ports:
+    #         - "8989:3306"
+    #     volumes:
+    #         - "./data/db/mysql:/var/lib/mysql"
